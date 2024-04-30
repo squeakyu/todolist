@@ -1,0 +1,85 @@
+/* Basic Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('ToDo.webp'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container, .register-container, .todo-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    margin: 5% auto; /* Top margin adjusted for vertical centering */
+    width: 100%;
+    max-width: 400px; /* Fixed max-width for better control */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Softer shadow for subtlety */
+    border: none; /* Removing border for a cleaner look */
+    transition: all 0.3s ease; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Enhancing hover effect */
+.login-container:hover, .register-container:hover, .todo-container:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
+
+h1 {
+    text-align: center; 
+}
+
+#myInput {
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+
+.addBtn, .rmvBtn {
+    padding: 10px 20px;
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 1px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
+}
+
+.addBtn:hover, .rmvBtn:hover {
+    background-color: #0056b3; 
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 20px; 
+    background: #f8f9fa; 
+    font-size: 18px;
+    transition: background-color 0.3s; 
+}
+
+li:hover {
+    background-color: #e9ecef; /* Light gray background on hover */
+}
+
+li.selected {
+    background-color: #ffdead; /* Light yellow background for selected item */
+}
