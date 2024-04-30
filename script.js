@@ -42,12 +42,17 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         alert("Passwords do not match!");
         return;
     }
+    
     try {
-        await registerUser(email, password);
-        alert("Registration successful, you can now login.");
-        document.querySelector('.register-container').style.display = 'none';
-        document.querySelector('.login-container').style.display = 'block';
-    } catch (error) {
+        const result = await registerUser(email, password);
+        if(result.error){
+            alert(result.error);
+        }else{
+            alert("Registration successful, you can now login.");
+            document.querySelector('.register-container').style.display = 'none';
+            document.querySelector('.login-container').style.display = 'block';
+        }
+    }catch (error) {
         alert("Failed to register: " + error.message);
     }
 });

@@ -1,29 +1,52 @@
 const db = new PouchDB('todos');
 
 async function registerUser(email, password){
-    const user = {
-        _id: email,
-        password: password,
-        todos: [],
-    };
-    try{
-        await db.put(user);
-        console.log('User registered');
-    }catch(err){
-        console.log('Error registering', err);
+    try {
+        // Attempt to retrieve any existing user with the same email
+        const response = await db.get(email);
+        if (response) {
+            console.error('Account already registered. Try logging in.');
+            return { error: 'Account already registered. Try logging in.' };
+        }
+    } catch (err) {
+        // The error "not_found" means the email is not yet registered
+        if (err.name === 'not_found') {
+            const user = {
+                _id: email,
+                password: password,  // Consider hashing this password before storage
+                todos: []
+            };
+            try {
+                await db.put(user);
+                console.log('User registered');
+                return { success: 'User registered successfully' };
+            } catch (registerErr) {
+                console.error('Error registering user:', registerErr);
+                return { error: 'Error registering user' };
+            }
+        } else {
+            // Handle other potential errors from the `db.get` call
+            console.error('Error checking user existence:', err);
+            return { error: 'Database access error' };
+        }
     }
 }
 
+
 async function loginUser(email, password){
-    try{
+    try {
         const user = await db.get(email);
-        if(user.password === password){
+        if(user.password === password) {
             return user.todos;
-        }else{
-            throw new Error('Invalid username or password');
+        }else {
+            throw new Error('Password is incorrect. Please try again.');
         }
-    }catch(err){
-        throw new Error('User not found');
+    }catch(err) {
+        if(err.name === 'not_found') {
+            throw new Error('User not found');
+        }else{
+            throw err;
+        }
     }
 }
 
